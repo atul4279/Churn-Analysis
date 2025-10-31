@@ -1,0 +1,28 @@
+name: MLOPS CICD Pipeline
+
+on :
+  push:
+    branches:
+      -main 
+
+jobs: 
+  build-train-test-deploy:
+    runs-on: unumtu-latest 
+
+    steps:
+      -name: Checkout repository
+       uses: actions/checkout@v3
+
+       -name: Set up python 
+        uses: actions/setup-python@v4
+        with:
+        python-versionL: '3.9'
+
+
+       -name: Install dependencies
+       run:
+         python -m pip install --upgrade pip 
+         pip install -r requirements.txt
+
+        -name: Run churn analysis
+         run: python churn_analysis.py
